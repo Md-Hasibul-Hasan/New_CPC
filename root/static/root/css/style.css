@@ -17,7 +17,7 @@ html{
 body{
     /* overflow: hidden; */
     font-family: 'Poppins', sans-serif;
-    background: #f5f5f5; /* Smoke white color */
+    background: #eee; /* Smoke white color */
 }
 
 @keyframes appear{
@@ -31,11 +31,6 @@ body{
     }
 }
 
-/* .header,
-.carousel,
-.swiper {
-    animation: appear 1s linear;
-} */
 
 /* ------------------------------For Navbar------------------------------ */
 

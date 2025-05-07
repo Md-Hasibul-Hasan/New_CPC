@@ -27,11 +27,19 @@ menu.querySelectorAll(".dropdown > i").forEach((arrow) => {
 
 
 
+
+
+
 // -----------------Sticky Header-----------------
 window.addEventListener("scroll", function() {
   var header = document.querySelector("header");
     header.classList.toggle("sticky", window.scrollY > 0);  
 });
+
+
+
+
+
 
 
 
@@ -88,6 +96,12 @@ function showSlider(type){
         next.click();
     }, timeAutoNext)
 }
+
+
+
+
+
+
 
 
 
@@ -157,7 +171,17 @@ const swiper = new Swiper('.card-wrapper', {
   document.querySelector('[data-filter="All"]').click();
   
 
+
+
+
+
+
+
+
+
 // ------------------Courses-----------------
+
+
 const swiperCourses = new Swiper('.card_wrapper_courses', {
   loop: true,
   spaceBetween: 30,
