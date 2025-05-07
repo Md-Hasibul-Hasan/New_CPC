@@ -1,0 +1,52 @@
+    {% comment %} <!-- -------------------Header----------------------------> {% endcomment %}
+    {% load static %}
+    <header class="header">
+        <div class="container_header">
+            <div class="logo"><img src="{% static "root/images/temp_logo.png" %}" alt="logo"></div>
+            <nav class="menu">
+                <div class="head">
+                    <div class="logo"><img src="{% static "root/images/temp_logo.png" %}" alt="logo"></div>
+                    <button type="button" class="close-menu-btn"></button>
+                </div>
+                <ul>
+                    <li><a href="{% url "home"  %}#home">Home</a></li>
+                    <li><a href="/#event">Events</a></li>
+                    <li><a href="/#courses">Courses</a></li>
+                    <li class="dropdown">
+                        <a href="/#executive_body">Panel</a>
+                        <i class="fa-solid fa-chevron-down"></i>
+                        <ul class="sub-menu">
+                            <li class="dropdown">
+                                <a href="#"><span>Faculty Panel</span></a>
+                                <i class="fa-solid fa-chevron-down"></i>
+                                <ul class="sub-menu sub-menu-2">
+                                    <li><a href="{% url "current_faculty" %}"><span>Current Faculty Panel</span></a></li>
+                                    <li><a href="{% url "former_faculty" %}"><span>Former Faculty Panel</span></a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url "current_panel" %}"><span>Current Panel</span></a></li>
+                            <li class="dropdown">
+                                <a href="#"><span>Former Panel</span></a>
+                                <i class="fa-solid fa-chevron-down"></i>
+                                <ul class="sub-menu sub-menu-2">
+                                    <li><a href="{% url "former_panel_2" %}"><span>Panel 2023-24(May-Nov)</span></a></li>
+                                    <li><a href="{% url "former_panel_1" %}"><span>Panel 2023-24(aug-May)</span></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="/#about_notice">About</a></li>
+                    <li><a href="/#about_notice">Notices</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <a href="/admin">Login</a>
+                <button type="button" class="open-menu-btn">
+                    <span class="line line-1"></span>
+                    <span class="line line-2"></span>
+                    <span class="line line-3"></span>
+                </button>
+            </div>
+        </div>
+    </header>

@@ -1,0 +1,49 @@
+{% extends "root/base.html" %}
+{% load static %}
+
+{% block title %}Event Details{% endblock title %}
+
+{% block link %} 
+<link rel="stylesheet" href="{% static "root/css/event_details.css" %}">
+{% endblock link %}
+
+
+{% block content %}
+<div class="content">
+    <div class="left-content">
+        <div class="content-img">
+            {% for i in event.images.all %}
+                <img src="{{ i.image.url }}" alt="" class="slide {% if forloop.first %}active{% endif %}">
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            <div class="prev"><a href=""><i class="fas fa-arrow-left"></i></a></div>
+            <div class="next"><a href=""><i class="fas fa-arrow-right"></i></a></div>
+        </div>        
+    </div>
+    
+    <div class="right-content">
+        <div class="title">{{ event.title }}</div>
+        <div class='des'>
+        <div class="date">{{event.date}}</div>
+        <div class="details">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {% if event.details %}
+                {{ event.details }}
+            {% else %}
+                No details to show 
+            {% endif %}
+        </div>
+        
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block custom_js %}
+<script src="{% static "root/js/event_details.js" %}"></script>
+
+{% endblock custom_js %}
+
+

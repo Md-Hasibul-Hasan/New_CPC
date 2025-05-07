@@ -1,0 +1,59 @@
+{% extends "root/base.html" %}
+{% load static %}
+
+{% block titile %}Current Panel{% endblock titile %}
+
+{% block content %}
+
+<div class="page-title">
+    <h1><br><strong>{{ page_title }}</strong></h1>
+    <h3><br><strong>{{ page_subtitle }}</strong></h3>
+</div>
+
+
+
+<section id="team">
+    <div class="container">
+
+        
+        {% for item in panels %}
+        <div class="container_title" id="{{ item.panel.name|slugify }}" data-aos="fade-up" data-aos-duration="1500">
+            <h2><span class="dash">—</span> {{ item.panel.name|upper }} <span class="dash">—</span></h2>
+        </div>
+    
+        {% if item.leader %}
+            <div class="container_leader" data-aos="fade-up" data-aos-duration="1500">
+                <div class="member-card">
+                    <img src="{{ item.leader.image.url }}" alt="{{ item.leader.name }}">
+                    <div class="icon-hover-box">
+                            <a href="{{ item.leader.facebook_link }}"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="{{ item.leader.linkedin_link }}"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                    <h3>{{ item.leader.name }}</h3>
+                    <p>{{ item.leader.role }}</p>
+                </div>
+            </div>
+        {% endif %}
+    
+        <div class="container_members" data-aos="fade-up" data-aos-duration="1500">
+            {% for member in item.members %}
+                <div class="member-card">
+                    <img src="{{ member.image.url }}" alt="{{ member.name }}">
+                    <div class="icon-hover-box">
+                            <a href="{{ member.facebook_link }}"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="{{ member.linkedin_link }}"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                    <h3>{{ member.name }}</h3>
+                    <p>{{ member.role }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    
+
+    </div>
+</section>
+
+
+
+{% endblock content %}

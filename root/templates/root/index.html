@@ -1,0 +1,288 @@
+{% extends "root/base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+{% block style %}
+<link rel="stylesheet" href="{% static "root/css/style.css" %}">
+{% endblock style %}
+
+{% block content %}
+
+
+
+   <section id="home">
+    <div class="carousel">
+     <!-- list item -->
+     <div class="list">
+         <div class="item">
+             <img src="{% static "root/images/events/game.jpg" %} ">
+             <div class="content">
+                 <div class="author">UPGRADE YOURSELF</div>
+                 <div class="title">Compuer & Programming Club, <span>KiU</span></div>
+             </div>
+         </div>
+         <div class="item">
+             <img src="{% static "root/images/events/fest2.jpg" %}">
+             <div class="content">
+                 <div class="author">UPGRADE YOURSELF</div>
+                 <div class="title">Compuer & Programming Club, <span>KiU</span></div>
+             </div>
+         </div>
+         <div class="item">
+             <img src="{% static "root/images/events/ev2.jpg" %}">
+             <div class="content">
+                 <div class="author">UPGRADE YOURSELF</div>
+                 <div class="title">Compuer & Programming Club, <span>KiU</span></div>
+             </div>
+         </div>
+         <div class="item">
+             <img src="{% static "root/images/events/ev3.jpg" %}">
+             <div class="content">
+                 <div class="author">UPGRADE YOURSELF</div>
+                 <div class="title">Computer & Programming Club, <span>KiU</span></div>
+             </div>
+         </div>
+     </div>
+     <!-- list thumnail -->
+     <div class="thumbnail">
+         <div class="item">
+             <img src="{% static "root/images/events/game.jpg" %}">
+         </div>
+         <div class="item">
+             <img src="{% static "root/images/events/fest2.jpg" %}">
+         </div>
+         <div class="item">
+             <img src="{% static "root/images/events/ev2.jpg" %}">
+         </div>
+         <div class="item">
+             <img src="{% static "root/images/events/ev3.jpg" %}">
+         </div>
+     </div>
+     <!-- next prev -->
+ 
+     <div class="arrows">
+         <button id="prev"><</button>
+         <button id="next">></button>
+     </div>
+     <!-- time running -->
+     <div class="time"></div>
+ </section>
+
+ 
+   <section id="event">
+    <div class="swiper" id="events" data-aos="fade-up" data-aos-duration="1500">
+        <div class="card-wrapper">
+            <div class="center">
+                <h1><span class="dash">—</span> EVENTS <span class="dash">—</span></h1>
+                <ul id="portfolio-flters">
+                    <li class="filter-btn active" data-filter="All">All</li>
+                    <li class="filter-btn" data-filter="PROGRAMMING">PROGRAMMING</li>
+                    <li class="filter-btn" data-filter="HACKATHON">HACKATHON</li>
+                    <li class="filter-btn" data-filter="WEB">WEB</li>
+                    <li class="filter-btn" data-filter="FEST">FEST</li>
+                    <li class="filter-btn" data-filter="OTHERS">OTHERS</li>
+                  </ul>
+                  
+                  <p id="no-images-message" style="display: none; text-align: center; font-size: 1.2rem; color: black; margin-top: 20px;">
+                      No images to show
+                  </p>
+            </div>
+              
+            <ul class="card-list swiper-wrapper ">
+                {% for i in event %}
+                    {% for img in i.images.all %}
+                        <li class="card-item swiper-slide All {{ i.type }}">
+                            <img src="{{ img.image.url }}" alt="">
+                            <div class="layer">
+                                <h3>{{ i.title }}</h3>
+                                <p>{{ i.date }}</p>
+                                <a href="{% url "event_details" i.id %}"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            </div>  
+                        </li>
+                    {% empty %}
+                        <li>No images for {{ i.title }}</li>
+                    {% endfor %}
+                {% endfor %}
+
+
+            </ul>
+    
+              <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+    
+                <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div> 
+        </div>
+    </div>
+</section>
+    
+
+   <section id="courses">
+    <div class="center_courses" data-aos="fade-up" data-aos-duration="1000">
+        <h1><span class="dash">—</span> COURSES <span class="dash">—</span></h1>
+    </div></div>
+    
+    <div class="card_wrapper_courses swiper" data-aos="fade-up" data-aos-duration="1000">
+        <div class="swiper-wrapper"  data-aos="flip-up" data-aos-duration="1500">
+            {% for i in course %}
+            <div class="swiper-slide">
+                <a href="{% url "course_details" i.id %}" class="card_link_courses">
+                    <img src="{{ i.image.url }}" alt="" class="card_image_courses">
+                    <h2 class="card_title_courses">{{ i.title }}</h2>
+                    <p class="card_description_courses">{{ i.description }}</p>  
+                    <button class="card_btn_courses"><i class="fa-solid fa-arrow-right card_icon_courses"></i></button>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        <div class="swiper-pagination swiper-pagination-courses"></div>
+
+        <!-- <div class="swiper-button-prev swiper-button-prev-courses"></div>
+        <div class="swiper-button-next swiper-button-next-courses"></div> -->
+    </div>
+</section>
+
+<section id="executive_body">
+    <div class="ex_container" >
+
+
+        <div class="ex_title" data-aos="fade-up" data-aos-duration="1000">
+            <h1><span class="dash">—</span> EXECUTIVE BODY <span class="dash">—</span></h1>
+        </div>
+
+
+        <!-- Members -->
+        <div class="container_cards" data-aos="fade-up" data-aos-duration="1000">
+            <div class=" card" data-aos="flip-left" data-aos-duration="1500">
+                <a href="{% url "current_panel" %}#admin-panel">
+                    <img src="{% static 'root/images/Cards/admin.png' %}" alt="Member1">
+                    <h3>Admin Panel</h3>
+                </a>
+            </div>
+
+            <div class=" card" data-aos="flip-left" data-aos-duration="1500">
+                <a href="{% url "current_panel" %}#mentor-wing">
+                    <img src="{% static 'root/images/Cards/mentor.png' %}" alt="Member1">
+                    <h3>Mentorship Wing</h3>
+                </a>
+            </div>
+
+            <div class=" card" data-aos="flip-left" data-aos-duration="1500">
+                <a href="{% url "current_panel" %}#it-wing">
+                    <img src="{% static 'root/images/Cards/IT.png' %}" alt="Member1">
+                    <h3>IT Wing</h3>
+                </a>
+            </div>
+
+            <div class=" card" data-aos="flip-left" data-aos-duration="1500">
+                <a href="{% url "current_panel" %}#executive-wing">
+                    <img src="{% static 'root/images/Cards/executive.png' %}" alt="Member1">
+                    <h3>Executive Wing</h3>
+                </a>
+            </div>
+
+            <div class=" card" data-aos="flip-left" data-aos-duration="1500">
+                <a href="{% url "current_panel" %}#advertising-finance-management-wing">
+                    <img src="{% static 'root/images/Cards/adv.png' %}" alt="Member1">
+                    <h3>Advertising & Finance Management Wing</h3>
+                </a>
+            </div>
+
+            <div class=" card" data-aos="flip-left" data-aos-duration="1500">
+                <a href="{% url "current_panel" %}#public-relations-wing">
+                    <img src="{% static 'root/images/Cards/public.png' %}" alt="Member1">
+                    <h3>Public Relations Wing</h3>
+                </a>
+            </div>
+
+
+
+
+            <!-- More members as needed -->
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+</section>
+
+
+<section id="about_notice" >
+    <div class="about" id="about" data-aos="fade-up" data-aos-duration="1500">
+        <h1><span class="dash">—</span> ABOUT <span class="dash">—</span></h1>
+        <p>
+            CPC-KiU Computer and Programming Club aims to build a user-friendly competitive environment
+            and ready-to-go helping community to help foster the soft and hard skill needed in the era
+            of technological revolution. Whether you are a beginner who does not know anything about
+            computer and programming or an expert, we have place for everyone to improve.
+        </p>
+        <a href="https://www.facebook.com/bcpc.bsmru" class="about_btn">Learn More</a>
+    </div>
+    <div class="notice" id="notice" data-aos="fade-up" data-aos-duration="1500">
+        <h1><span class="dash">—</span> NOTICES <span class="dash">—</span></h1>
+        <div class="notice-cards-container">
+            {% for i in notice %}
+            <div class="notice-card">
+                {% if i.file %}
+                <a href="{{ i.file.url }}">{{i.title}}</a>
+                {% else %}
+                <a href="#">{{i.title}}</a>
+                {% endif %}
+                <p>{{i.date}}</p>
+            </div>
+            {% empty %}
+            <div class="notice-card">
+                <a href="#">No Notice to Show</a>
+                <p>Date: _ _/_ _/_ _</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+<section id="contact">
+    <div class="container_contact">
+        <div class="row">
+            <div class="contact-left" data-aos="fade-up" data-aos-duration="1500">
+                <h1 class="center_contact"><span class="dash">—</span> Contact Us <span class="dash">—</span></h1>
+                <p> <i class="fa-solid fa-location-dot"></i>  Temporary Campus KiU (Gurudayal College), <span class="space">Kishoreganj, Bangladesh</span></p>
+                <p> <i class="fa-solid fa-paper-plane"></i>  bcpc@bsmru.ac.bd</p>
+                <p> <i class="fa-solid fa-phone"></i>  +8801304946141</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/bcpc.bsmru"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.linkedin.com/company/103361395/"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://www.youtube.com/@BCPC-official"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="contact-right" data-aos="fade-up" data-aos-duration="1500">
+                <form id="contactForm">
+                    {% csrf_token %}
+                    <input type="text" name="Name" placeholder="Your Name" required>
+                    <input type="email" name="Email" placeholder="Your Email" required>
+                    <input type="text" name="Subject" placeholder="Subject" required>
+                    <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+                    <button type="submit" class="btn btn2">Submit</button>
+                </form>
+                
+                <span id="msg"></span>
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+{% endblock content %}

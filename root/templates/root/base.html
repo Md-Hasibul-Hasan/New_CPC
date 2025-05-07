@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Base.html{% endblock title %}</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b61dd4f2ec.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static "root/css/style.css" %}">
+    {% block link %}{% endblock link %}
+</head>
+<body>
+    
+    {% include "root/header.html" %}
+    {% block content %}{% endblock content %}
+    {% include "root/footer.html" %}
+
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script> AOS.init(); </script>
+
+    <script src="{% static "root/js/index.js" %}"></script>
+
+    {% block custom_js %}{% endblock custom_js %}
+
+
+    {% comment %} for sending emails {% endcomment %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+    $('#contactForm').submit(function(e){
+        e.preventDefault();  // prevent default form submit
+        $.ajax({
+            type: 'POST',
+            url: '{% url "contact" %}',  // view এর url
+            data: $(this).serialize(),  // form data
+            success: function(response){
+                $('#msg').html('<span style="color:green;">Message sent successfully!</span>');
+                $('#contactForm')[0].reset();  // form reset
+                
+                // 🕑 ৫ সেকেন্ড পরে মেসেজ clear করো
+                setTimeout(function(){
+                    $('#msg').html('');
+                }, 5000);
+            },
+            error: function(){
+                $('#msg').html('<span style="color:red;">Something went wrong. Try again!</span>');
+
+                // 🕑 ৫ সেকেন্ড পরে মেসেজ clear করো
+                setTimeout(function(){
+                    $('#msg').html('');
+                }, 5000);
+            }
+        });
+    });
+
+    </script>
+
+</body>
+</html>

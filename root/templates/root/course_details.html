@@ -1,0 +1,33 @@
+{% extends "root/base.html" %}
+{% load static %}
+
+{% block title %}Course Details{% endblock title %}
+
+{% block link %} 
+<link rel="stylesheet" href="{% static 'root/css/course_details.css' %}">
+{% endblock link %}
+
+{% block content %}
+<div class="content_c">
+    <div class="left-content_c">
+        <div class="content-img_c">
+            {% if course.image %}
+                <img src="{{ course.image.url }}" alt="{{ course.title }}">
+            {% else %}
+                <p>No image available</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="right-content_c">
+        <div class="title">{{ course.title }}</div>
+        <div class="details">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {% if course.details %}
+                {{ course.details }}
+            {% else %}
+                No details available
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
