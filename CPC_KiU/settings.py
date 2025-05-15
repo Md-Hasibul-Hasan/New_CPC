@@ -139,11 +139,14 @@ EMAIL_HOST_USER = 'hasibsorker02@gmail.com'   # তোমার জিমেই�
 EMAIL_HOST_PASSWORD = 'kqos bpxo hqxd ejsu'  # App Password (gmail normal password না)
 
 
-INSTALLED_APPS += ['storages']
 
 
 
 # Media files (use Cloudinary)
+
+INSTALLED_APPS += ['storages']
+
+
 DEFAULT_FILE_STORAGE = 'storages.backends.cloudinary.CloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
