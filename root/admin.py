@@ -20,7 +20,9 @@
 
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Notice, Course, Event, EventImage , ExecutivePanel, ExecutiveMember, FacultyPanel, FacultyMember
+from .models import Notice, Course, Event, EventImage , CurrentExecutiveMember, FormerExecutiveMember,  CurrentFacultyMember, FormerFacultyMember, ShowCase
+
+
 
 # ---------- Notice Admin ----------
 @admin.register(Notice)
@@ -41,6 +43,8 @@ class EventImageInline(admin.TabularInline):  # or admin.StackedInline if you pr
     model = EventImage
     extra = 1
 
+
+
 # ---------- Event Admin ----------
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
@@ -58,15 +62,25 @@ class EventAdmin(admin.ModelAdmin):
 
 
 
-@admin.register(ExecutivePanel)
-class PanelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
+
+
+
+@admin.register(CurrentExecutiveMember)
+class CurrentExecutiveMemberAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'role', 'panel', 'is_leader', 'image_preview')
     list_display_links = ('id', 'name')
-    search_fields = ('name',)
+    list_filter = ('panel', 'is_leader')
+    search_fields = ('name', 'role')
+
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" width="60" style="border-radius: 4px;" />', obj.image.url)
+        return "(No image)"
+    image_preview.short_description = 'Image'
 
 
-@admin.register(ExecutiveMember)
-class MemberAdmin(admin.ModelAdmin):
+@admin.register(FormerExecutiveMember)
+class FormerExecutiveMemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'role', 'panel', 'is_leader', 'image_preview')
     list_display_links = ('id', 'name')
     list_filter = ('panel', 'is_leader')
@@ -81,14 +95,24 @@ class MemberAdmin(admin.ModelAdmin):
 
 
 
-@admin.register(FacultyPanel)
-class FacultyPanelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'page_title', 'page_subtitle')
+
+
+@admin.register(CurrentFacultyMember)
+class CurrentFacultyMemberAdmin(admin.ModelAdmin):
+    list_display = ('id',  'name', 'designation', 'panel', 'image_preview')
     list_display_links = ('id', 'name')
+    list_filter = ('panel',)
+    search_fields = ('name', 'designation')
+
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" width="60" style="border-radius: 4px;" />', obj.image.url)
+        return "(No image)"
+    image_preview.short_description = 'Image'
 
 
-@admin.register(FacultyMember)
-class FacultyMemberAdmin(admin.ModelAdmin):
+@admin.register(FormerFacultyMember)
+class FormerFacultyMemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'designation', 'panel', 'image_preview')
     list_display_links = ('id', 'name')
     list_filter = ('panel',)
@@ -100,3 +124,14 @@ class FacultyMemberAdmin(admin.ModelAdmin):
         return "(No image)"
     image_preview.short_description = 'Image'
 
+
+
+@admin.register(ShowCase)
+class ShowCaseAdmin(admin.ModelAdmin):
+    list_display = ( 'id','image_preview')
+
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" width="60" style="border-radius: 4px;" />', obj.image.url)
+        return "(No image)"
+    image_preview.short_description = 'Image'

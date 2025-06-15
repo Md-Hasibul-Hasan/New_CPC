@@ -25,14 +25,15 @@
                                 </ul>
                             </li>
                             <li><a href="{% url "current_panel" %}"><span>Current Panel</span></a></li>
-                            <li class="dropdown">
+                            <li><a href="{% url "former_panel" %}"><span>Former Panel</span></a></li>
+                            {% comment %} <li class="dropdown">
                                 <a href="#"><span>Former Panel</span></a>
                                 <i class="fa-solid fa-chevron-down"></i>
                                 <ul class="sub-menu sub-menu-2">
                                     <li><a href="{% url "former_panel_2" %}"><span>Panel 2023-24(May-Nov)</span></a></li>
                                     <li><a href="{% url "former_panel_1" %}"><span>Panel 2023-24(aug-May)</span></a></li>
                                 </ul>
-                            </li>
+                            </li> {% endcomment %}
                         </ul>
                     </li>
                     <li><a href="/#about_notice">About</a></li>

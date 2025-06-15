@@ -5,20 +5,18 @@
 
 {% block content %}
 
-
 <div class="page-title">
     <h1><br><strong>{{ page_title }}</strong></h1>
     <h3><br><strong>{{ page_subtitle }}</strong></h3>
 </div>
 
-
 <section id="team">
     <div class="container">
 
         {% for item in panels %}
-        <div class="container_title" id="{{ item.panel.name|slugify }}" data-aos="fade-up" data-aos-duration="1500">
-            <h2><span class="dash">—</span> {{ item.panel.name|upper }} <span class="dash">—</span></h2>
-        </div>
+            <div class="container_title" id="{{ item.panel|slugify }}" data-aos="fade-up" data-aos-duration="1500">
+                <h2><span class="dash">—</span> {{ item.panel|upper }} <span class="dash">—</span></h2>
+            </div>
 
             <div class="container_members" data-aos="fade-up" data-aos-duration="1500">
                 {% for member in item.members %}
@@ -34,13 +32,10 @@
                 {% endfor %}
             </div>
         {% endfor %}
+
     </div>
 </section>
 
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br><br><br><br>
 
 {% endblock content %}

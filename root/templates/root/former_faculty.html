@@ -4,59 +4,38 @@
 {% block title %}Former Faculty{% endblock title %}
 
 {% block content %}
-
 <div class="page-title">
-    <h1><br><strong>FORMER FACULTY PANEL</strong></h1>
-    <h3><br><strong>Effective from August 2022 - August 2023</strong></h3>
+    <h1><br><strong>{{ page_title }}</strong></h1>
+    <h3><br><strong>{{ page_subtitle }}</strong></h3>
 </div>
 
 <section id="team">
     <div class="container">
-
-
-        
-        <div class="container_title" data-aos="fade-up" data-aos-duration="1500">
-            <h2><span class="dash">—</span> CHIEF PATRON <span class="dash">—</span></h2>
+        {% for item in panels %}
+        <div class="container_title" id="{{ item.panel|slugify }}" data-aos="fade-up" data-aos-duration="1500">
+            <h2><span class="dash">—</span> {{ item.panel|upper }} <span class="dash">—</span></h2>
         </div>
 
-        <!-- Leader -->
-        <div class="container_leader" data-aos="fade-up" data-aos-duration="1500">
+        <div class="container_members" data-aos="fade-up" data-aos-duration="1500">
+            {% for member in item.members %}
             <div class="member-card">
-                <img src="{% static "root/images/adv/swapnil.jpg" %}" alt="Patron">
+                {% if member.image %}
+                    <img src="{{ member.image.url }}" alt="{{ member.name }}">
+                {% else %}
+                    <img src="{% static 'images/default-user.png' %}" alt="No Image">
+                {% endif %}
                 <div class="icon-hover-box">
-                    <!-- <a href="#"><i class="fa-brands fa-facebook"></i></a> -->
-                    <a href="https://www.linkedin.com/in/swapnil-biswas-48250a225/"><i class="fa-brands fa-linkedin"></i></i></a>
+                        <a href="{{ member.linkedin_link }}" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                        {% comment %} <a href="{{ member.facebook_link }}" target="_blank"><i class="fa-brands fa-facebook"></i></a> {% endcomment %}
                 </div>
-                <h3>Swapnil Biswas</h3>
-                <p>Lecturer, Dept of CSE, KiU</p>
+                <h3>{{ member.name }}</h3>
+                <p>{{ member.designation }}</p>
             </div>
+            {% endfor %}
         </div>
-
-        <div class="container_title" data-aos="fade-up" data-aos-duration="1500">
-            <h2><span class="dash">—</span> CHIEF ADVISOR <span class="dash">—</span></h2>
-        </div>
-
-        <!-- Leader -->
-        <div class="container_leader" data-aos="fade-up" data-aos-duration="1500">
-            <div class="member-card">
-                <img src="{% static "root/images/adv/saaj.jpg" %}" alt="Advisor">
-                <div class="icon-hover-box">
-                    <!-- <a href="#"><i class="fa-brands fa-facebook"></i></a> -->
-                    <a href="https://www.linkedin.com/in/noshin-tahsin-41628b176/"><i class="fa-brands fa-linkedin"></i></i></a>
-                </div>
-                <h3>Noshin Tahsin</h3>
-                <p>Lecturer, Dept of CSE, KiU</p>
-            </div>
-        </div>
-
-
+        {% endfor %}
     </div>
 </section>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-
+<br><br><br><br><br>
 {% endblock content %}

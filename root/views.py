@@ -3,11 +3,12 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from root.models import Notice,Course,Event,ExecutivePanel,FacultyPanel
+from root.models import Notice,Course,Event,CurrentExecutiveMember,CurrentFacultyMember,FormerExecutiveMember,FormerFacultyMember,ShowCase
 
 # Create your views here.
 
 def home(request):
+    showcase = ShowCase.objects.all()
     notice=Notice.objects.all().order_by('-date')
     course=Course.objects.all().order_by('-id')
     event=Event.objects.all()
@@ -15,72 +16,131 @@ def home(request):
         'notice':notice,
         'course':course,
         'event':event,
+        'showcase':showcase
     }
     return render(request,"root/index.html",dic)
 
 
 
-def current_panel(request):
-    panels_data = []
-    panels = ExecutivePanel.objects.all()
 
-    for panel in panels:
-        leader = panel.members.filter(is_leader=True).first()
-        members = panel.members.filter(is_leader=False)
-        panels_data.append({
+def current_panel(request):
+    fields = CurrentExecutiveMember.objects.all()
+
+    # Unique প্যানেল নাম বের করা
+    panel_names = fields.values_list('panel', flat=True).distinct()
+    
+    # প্যানেল অনুযায়ী মেম্বার গ্রুপ করা
+    panels = []
+    for panel in panel_names:
+        leader = CurrentExecutiveMember.objects.filter(panel=panel, is_leader=True).first()
+        print(leader)
+        members = CurrentExecutiveMember.objects.filter(panel=panel, is_leader=False)
+        print(members)
+        panels.append({
             'panel': panel,
             'leader': leader,
             'members': members
         })
 
-    # ✅ get title & subtitle from the first panel (or any specific logic)
-    if panels.exists():
-        page_title = panels[0].page_title
-        page_subtitle = panels[0].page_subtitle
-    else:
-        page_title = 'Default Title'
-        page_subtitle = 'Default Subtitle'
 
-    return render(request, 'root/current_panel.html', {
-        'panels': panels_data,
-        'page_title': page_title,
-        'page_subtitle': page_subtitle
-    })
+    context = {
+        'panels': panels,
+        'page_title': fields[0].page_title if fields else 'EXECUTIVE PANEL',
+        'page_subtitle': fields[0].page_subtitle if fields else 'Current Panel (Effective from...)'
+    }
+
+    return render(request, 'root/current_panel.html', context)
 
 
-def former_panel_1(request):
-    return render(request, 'root/former_panel_1.html')
+def former_panel(request):
+    fields = FormerExecutiveMember.objects.all()
 
-def former_panel_2(request):
-    return render(request, 'root/former_panel_2.html')
+    # Unique প্যানেল নাম বের করা
+    panel_names = fields.values_list('panel', flat=True).distinct()
+    
+    # প্যানেল অনুযায়ী মেম্বার গ্রুপ করা
+    panels = []
+    for panel in panel_names:
+        leader = FormerExecutiveMember.objects.filter(panel=panel, is_leader=True).first()
+        print(leader)
+        members = FormerExecutiveMember.objects.filter(panel=panel, is_leader=False)
+        print(members)
+        panels.append({
+            'panel': panel,
+            'leader': leader,
+            'members': members
+        })
+
+
+    context = {
+        'panels': panels,
+        'page_title': fields[0].page_title if fields else 'EXECUTIVE PANEL',
+        'page_subtitle': fields[0].page_subtitle if fields else 'Former Panel (Effective from...)'
+    }
+
+    return render(request, 'root/former_panel.html', context)
+
+
+# def former_panel_1(request):
+#     return render(request, 'root/former_panel_1.html')
+
+# def former_panel_2(request):
+#     return render(request, 'root/former_panel_2.html')
+
+
+
+
+
+
+
+
 
 def current_faculty(request):
-    panels_data = []
-    panels = FacultyPanel.objects.all()
+    fields = CurrentFacultyMember.objects.all()
 
-    for panel in panels:
-        members = panel.members.all()
-        panels_data.append({
+    # Unique প্যানেল নাম বের করা
+    panel_names = fields.values_list('panel', flat=True).distinct()
+
+    # প্যানেল অনুযায়ী মেম্বার গ্রুপ করা
+    panels = []
+    for panel in panel_names:
+        members = CurrentFacultyMember.objects.filter(panel=panel)
+        panels.append({
             'panel': panel,
             'members': members
         })
 
-    # ✅ get title & subtitle from the first panel
-    if panels.exists():
-        page_title = panels[0].page_title
-        page_subtitle = panels[0].page_subtitle
-    else:
-        page_title = 'Default Title'
-        page_subtitle = 'Default Subtitle'
+    context = {
+        'panels': panels,
+        'page_title': fields[0].page_title if fields else 'FACULTY PANEL',
+        'page_subtitle': fields[0].page_subtitle if fields else 'Current Panel (Effective from...)'
+    }
+    return render(request, 'root/current_faculty.html', context)
 
-    return render(request, 'root/current_faculty.html', {
-        'panels': panels_data,
-        'page_title': page_title,
-        'page_subtitle': page_subtitle
-    })
 
 def former_faculty(request):
-    return render(request, 'root/former_faculty.html')
+    fields = FormerFacultyMember.objects.all()
+
+    # Unique প্যানেল নাম বের করা
+    panel_names = fields.values_list('panel', flat=True).distinct()
+
+    # প্যানেল অনুযায়ী মেম্বার গ্রুপ করা
+    panels = []
+    for panel in panel_names:
+        members = FormerFacultyMember.objects.filter(panel=panel)
+        panels.append({
+            'panel': panel,
+            'members': members
+        })
+
+    context = {
+        'panels': panels,
+        'page_title': fields[0].page_title if fields else 'FACULTY PANEL',
+        'page_subtitle': fields[0].page_subtitle if fields else 'Former Panel (Effective from...)'
+    }
+    return render(request, 'root/former_faculty.html', context)
+
+
 
 
 def event_details(request,id):

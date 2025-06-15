@@ -140,8 +140,8 @@ body{
     left: 0;
     width:180px ;
     padding: 15px 0;
-    background-color: #f1683a;
-    box-shadow: 0 0 5px rgba(0, 0%, 0%, 0.5);
+    background-color: #17132f;
+    box-shadow: 0 0 5px rgba(211, 202, 202, 0.5);
     border-radius: 4px;
     z-index: 1;
     transform-origin: top;
@@ -178,6 +178,7 @@ body{
 
 /* //bottom border hover effect for sub-menu */
 .header .menu .sub-menu span{
+    padding-bottom: 4px;
     background-image: linear-gradient(#f1683a, #f1683a);
     background-size: 0% 2px;
     background-repeat: no-repeat;
@@ -526,7 +527,7 @@ body{
     display: flex;
     gap: 10px;
     align-items: center;
-    /* visibility: hidden; */
+    visibility: hidden;
 }
 .arrows button{
     width: 40px;
@@ -540,6 +541,7 @@ body{
     transition: .5s;
     cursor: pointer;
     font-size: larger;
+
 }
 .arrows button:hover{
     background-color: #fff;

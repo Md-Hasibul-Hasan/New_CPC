@@ -14,49 +14,27 @@
     <div class="carousel">
      <!-- list item -->
      <div class="list">
+
+        {% for item in showcase %}
          <div class="item">
-             <img src="{% static "root/images/events/game.jpg" %} ">
-             <div class="content">
-                 <div class="author">UPGRADE YOURSELF</div>
-                 <div class="title">Compuer & Programming Club, <span>KiU</span></div>
-             </div>
-         </div>
-         <div class="item">
-             <img src="{% static "root/images/events/fest2.jpg" %}">
-             <div class="content">
-                 <div class="author">UPGRADE YOURSELF</div>
-                 <div class="title">Compuer & Programming Club, <span>KiU</span></div>
-             </div>
-         </div>
-         <div class="item">
-             <img src="{% static "root/images/events/ev2.jpg" %}">
-             <div class="content">
-                 <div class="author">UPGRADE YOURSELF</div>
-                 <div class="title">Compuer & Programming Club, <span>KiU</span></div>
-             </div>
-         </div>
-         <div class="item">
-             <img src="{% static "root/images/events/ev3.jpg" %}">
+             <img src="{{ item.image.url }}" alt="not found">
              <div class="content">
                  <div class="author">UPGRADE YOURSELF</div>
                  <div class="title">Computer & Programming Club, <span>KiU</span></div>
              </div>
          </div>
+        {% endfor %}
+
      </div>
+     
      <!-- list thumnail -->
      <div class="thumbnail">
-         <div class="item">
-             <img src="{% static "root/images/events/game.jpg" %}">
+        {% for item in showcase %}
+        <div class="item">
+            <img src="{{ item.image.url }}" alt="not found">
          </div>
-         <div class="item">
-             <img src="{% static "root/images/events/fest2.jpg" %}">
-         </div>
-         <div class="item">
-             <img src="{% static "root/images/events/ev2.jpg" %}">
-         </div>
-         <div class="item">
-             <img src="{% static "root/images/events/ev3.jpg" %}">
-         </div>
+        {% endfor %}
+
      </div>
      <!-- next prev -->
  
